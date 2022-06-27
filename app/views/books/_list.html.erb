@@ -1,0 +1,43 @@
+<% if book.errors.any? %>
+  <%= book.errors.count %>error prohibited this obj from being saved:
+  <ul>
+    <% book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<div class="container px-5 px-sm-0">  <!-- この行を追加 -->
+  <div class="row">
+  <div class="col-md-3">
+
+    <h1>User info</h1>
+    <p><%= image_tag user.get_profile_image(100,100) %></p>
+
+    <table class="table">
+    <td scope="col">name</td>
+    <td>
+      <%= user.name %>
+    </td>
+    <tr>
+    <td scope="col">introduction</td>
+    <td><%= user.introduction %></td>
+    </tr>
+    </table>
+
+    <div class="row">
+     <%= link_to edit_user_path(user.id), class:"btn btn-outline-secondary btn-block" do %>
+     <i class="fas fa-user-cog"></i>
+     <% end %>
+    </div>
+
+  <h1>New book</h1>
+  <%= form_with model: book do |f| %>
+    <h4>Title</h4>
+      <%= f.text_field :title %>
+    <h4>Opinion</h4>
+      <%= f.text_area :body %><br>
+    <%#= f.submit 'Create Book' %>
+    <input type="submit" name="commit" value="Create Book" class="btn btn-success" data-disable-with="Create Book">
+  <% end %>
+  </div>

@@ -1,0 +1,37 @@
+<div class="container">
+ <div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+
+<% if flash[:notice] %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<h2>User info</h2>
+<% if @user.errors.any? %>
+  <%= @user.errors.count %> error prohibited this obj from being saved:
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_with model: @user, url: user_path(@user.id), method: :patch do |user| %>
+<p>Name</p>
+<%= user.text_field :name %>
+<p>Image</p>
+
+  <%= user.file_field :profile_image, placeholder: "ファイルを選択", accept: "image/*" %>
+<p>Introduction</p>
+<%= user.text_area :introduction %>
+<br>
+<%#= user.submit 'Update User' %>
+<input type="submit" name="commit" value="Update User" class="btn btn-secondary" data-disable-with="Update User">
+
+<% end %>
+
+  </div>
+ </div>
+</div>
